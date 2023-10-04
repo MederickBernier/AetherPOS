@@ -14,8 +14,8 @@ Route::get('/', [WelcomeController::class,'index'])->name('home');
 Route::get('/login', [UserController::class,'show_login'])->name('login.show');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-Route::get('/register', [UserController::class, 'show_register'])->name('register.show');
-Route::post('/register', [UserController::class, 'register'])->name('register');
+/* Route::get('/register', [UserController::class, 'show_register'])->name('register.show');
+Route::post('/register', [UserController::class, 'register'])->name('register'); */
 
 // Authenticated Routes
 Route::middleware(['auth'])->group(function(){
