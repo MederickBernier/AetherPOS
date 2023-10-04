@@ -8,13 +8,13 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2">
 
         <!-- Card 1 -->
-        <div class="col hidden">
+        <div class="col">
             <div class="card h-100 overflow-auto">
                 <div class="card-header">
-                    Card Title 1
+                    Events Tracker
                 </div>
                 <div class="card-body">
-                    Card content 1
+                    <livewire:upcoming-events/>
                 </div>
             </div>
         </div>

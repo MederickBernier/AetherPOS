@@ -37,6 +37,15 @@
                         <li><a class="dropdown-item" href="{{ route('menus.create') }}">Add a new Menu</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownEvents" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Events
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownEvents">
+                        <li><a class="dropdown-item" href="{{ route('events.index') }}">List of all Events</a></li>
+                        <li><a class="dropdown-item" href="{{ route('events.create') }}">Add a new Event</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Point of Sale</a>
                 </li>

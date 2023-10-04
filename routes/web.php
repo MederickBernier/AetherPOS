@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
@@ -54,4 +55,13 @@ Route::middleware(['auth'])->group(function(){
     Route::get('users/{user}/edit', [ManagementController::class, 'edit'])->name('management.users.edit');
     Route::put('users/{user}', [ManagementController::class, 'update'])->name('management.users.update');
     Route::delete('users/{user}', [ManagementController::class, 'destroy'])->name('management.users.destroy');
+
+    // Event Routes
+    Route::get('/events', [EventController::class,'index'])->name('events.index');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+    Route::get('/events/{event}/edit', [EventController::class,'edit'])->name('events.edit');
+    Route::put('/events/{event}', [EventController::Class,'update'])->name('events.update');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 });

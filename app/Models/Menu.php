@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Menu extends Model
 {
@@ -23,5 +24,9 @@ class Menu extends Model
                 'discount',
                 'adjustment_type'
             );
+    }
+
+    public function events(){
+        return $this->hasMany(Event::class);
     }
 }

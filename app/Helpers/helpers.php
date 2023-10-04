@@ -104,6 +104,18 @@ function serversArray(){
     return $servers;
 }
 
+function get_residential_districts(){
+    $districts = [
+        'Mists (Limsa Lominsa)',
+        'Lavender Beds (Gridania)',
+        'Goblet (Uldah)',
+        'Empyreum (Foundation)',
+        'Shirogane (Kugane)'
+    ];
+
+    return $districts;
+}
+
 function sendToLog($msg){
     \Log::info("Message to be logged: ". $msg);
 }
