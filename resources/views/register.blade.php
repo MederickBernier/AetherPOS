@@ -17,8 +17,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="characterServer" class="form-label">Character Server</label>
-                    <select class="form-control select2" id="characterServer" name="characterServer" required>
-                        <!-- Placeholder for server names. This will be populated from the controller -->
+                    <select class="form-control" id="characterServer" name="characterServer" required>
                         @foreach($servers as $server)
                             <option value="{{ $server }}">{{ $server }}</option>
                         @endforeach
