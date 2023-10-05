@@ -19,6 +19,10 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed
+            date_default_timezone_set('America/New_York');
+            $date = date('m/d/Y h:i:s a', time());
+            $msg = "User ".$credentials['character_first_name']." ".$credentials['character_last_name']." at ".$date;
+            sendToLog($msg);
             return redirect()->route('dashboard.index')->with('success', 'Welcome ' . $credentials['character_first_name'] . ' ' . $credentials['character_last_name'] . ' , you are successfully logged in.');
         }
         return back()->withErrors([
