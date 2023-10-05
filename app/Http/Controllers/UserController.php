@@ -19,7 +19,6 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed
-            sendToLog("user logged with .$credentials");
             return redirect()->route('dashboard.index')->with('success', 'Welcome ' . $credentials['character_first_name'] . ' ' . $credentials['character_last_name'] . ' , you are successfully logged in.');
         }
         return back()->withErrors([

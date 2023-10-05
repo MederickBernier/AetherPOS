@@ -101,7 +101,6 @@
                 <div class="card-body">
                     <ul>
                         <li>Menu modifications not available</li>
-                        <li>Event Module to create</li>
                         <li>Point of Sale Module to create</li>
                         <li>Accounting Module to create</li>
                         <li>Work the design to be more responsive on small and medium devices.</li>
