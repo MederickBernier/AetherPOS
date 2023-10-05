@@ -15,7 +15,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ $event->name }}</h5>
             <p class="card-text"><strong>Description:</strong> {{ $event->description ?? 'N/A' }}</p>
-            <p class="card-text"><strong>Location:</strong> {{ $event->residential_district ?? 'N/A' }}, {{ $event->ward ?? 'N/A' }}, {{ $event->plot ?? 'N/A' }}</p>
+            <p class="card-text"><strong>Location:</strong> {{ $event->residential_district ?? 'N/A' }}, W{{ $event->ward ?? 'N/A' }}, P{{ $event->plot ?? 'N/A' }}</p>
             <p class="card-text"><strong>Start:</strong> {{ $event->start_date }} at {{ $event->start_time }}</p>
             <p class="card-text"><strong>End:</strong> {{ $event->end_date }} at {{ $event->end_time }}</p>
             <p class="card-text"><strong>Duration:</strong> {{ \Carbon\Carbon::parse($event->start_timestamp)->diffInHours($event->end_timestamp) }} hours</p>

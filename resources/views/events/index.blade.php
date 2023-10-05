@@ -25,7 +25,7 @@
                     <div class="item-details" style="display: none;">
                         <p><strong>ID:</strong> {{ $event->id }}</p>
                         <p><strong>Description:</strong> {{ $event->description ?? 'N/A' }}</p>
-                        <p><strong>Location:</strong> {{ $event->residential_district ?? 'N/A' }}, {{ $event->ward ?? 'N/A' }}, {{ $event->plot ?? 'N/A' }}</p>
+                        <p><strong>Location:</strong> {{ $event->residential_district ?? 'N/A' }}, W{{ $event->ward ?? 'N/A' }}, P{{ $event->plot ?? 'N/A' }}</p>
                         <p><strong>Assigned Menu:</strong> {{ optional($event->menu)->name ?? 'N/A' }}</p>
                         <p><strong>Start:</strong> {{ $event->start_date }} at {{ $event->start_time }}</p>
                         <p><strong>End:</strong> {{ $event->end_date }} at {{ $event->end_time }}</p>
