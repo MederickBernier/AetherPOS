@@ -9,7 +9,7 @@
             @foreach($lowStockItems as $item)
                 <li class="list-group-item">
                     <a href="{{ route('inventory.edit', $item->id) }}">{{ $item->name }}</a>
-                    <span class="badge bg-warning text-dark float-end">{{ $item->quantity }}</span>
+                    <span class="badge bg-warning text-dark float-end">{{ $item->difference }}</span>
                 </li>
             @endforeach
         </ul>

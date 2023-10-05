@@ -15,7 +15,12 @@ class InventoryTracker extends Component
     }
 
     public function getLowStockItems(){
-        $this->lowStockItems = Item::whereColumn('quantity','<','threshold')->get();
+        $this->lowStockItems = Item::whereColumn('quantity','<','threshold')
+                                   ->get()
+                                   ->map(function ($item) {
+                                       $item->difference = $item->threshold - $item->quantity;
+                                       return $item;
+                                   });
         $this->progressValue = 100;
     }
     public function render()
