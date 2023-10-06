@@ -14,19 +14,19 @@
                     Events Tracker
                 </div>
                 <div class="card-body">
-                    <livewire:upcoming-events/>
+                    <livewire:upcoming-events />
                 </div>
             </div>
         </div>
 
         <!-- Card 2 -->
-        <div class="col hidden">
+        <div class="col">
             <div class="card h-100 overflow-auto">
                 <div class="card-header">
-                    Card Title 2
+                    Active Users
                 </div>
                 <div class="card-body">
-                    Card content 2
+                    <livewire:active-users />
                 </div>
             </div>
         </div>
