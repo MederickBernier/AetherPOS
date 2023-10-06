@@ -19,7 +19,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::post('/register', [UserController::class, 'register'])->name('register'); */
 
 // Authenticated Routes
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth', 'user.activity'])->group(function(){
     // Inventory Routes
     Route::get('inventory',[InventoryController::class, 'index'])->name('inventory.index');
     Route::post('inventory',[InventoryController::class, 'store'])->name('inventory.store');
@@ -66,5 +66,5 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
     // Point of Sale Routes
-    
+
 });

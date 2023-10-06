@@ -1,4 +1,4 @@
-<div wire:poll.60s="getLowStockItems">
+<div wire:poll.5s="getLowStockItems">
     {{-- <div class="progress" style="height: 5px; margin-bottom:2px;">
         <div class="progress-bar" role="progressbar" style="width: {{ $progressValue }}%;" aria-valuenow="{{ $progressValue }}" aria-valuemin="0" aria-valuemax="100"></div>
     </div> --}}

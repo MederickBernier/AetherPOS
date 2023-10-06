@@ -3,10 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -17,7 +17,9 @@ class User extends Authenticatable
         'character_last_name',
         'character_server',
         'email',
-        'password'
+        'password',
+        'is_active',
+        'last_active',
     ];
 
     protected $hidden = [
@@ -28,5 +30,14 @@ class User extends Authenticatable
     protected $cast = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_active' => 'datetime',
     ];
+
+    public function getIsOnlineAttribute()
+    {
+        if ($this->is_active && $this->last_active->diffInMinutes(now()) < 5) {
+            return true;
+        }
+        return false;
+    }
 }

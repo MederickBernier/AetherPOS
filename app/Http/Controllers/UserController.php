@@ -19,6 +19,12 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed
+
+            $user = Auth::user();
+            $user->is_active = true;
+            $user->last_active = now();
+            $user->save();
+
             date_default_timezone_set('America/New_York');
             $date = date('m/d/Y h:i:s a', time());
             $msg = "User ".$credentials['character_first_name']." ".$credentials['character_last_name']." at ".$date;
@@ -37,6 +43,10 @@ class UserController extends Controller
 
     public function logout()
     {
+        $user = Auth::user();
+        $user->is_active = false;
+        $user->save();
+        
         Auth::logout();
         return redirect()->route('home')->with('success', 'Logged out successfully');
     }
