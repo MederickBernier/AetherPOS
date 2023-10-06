@@ -19,6 +19,7 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Server</th>
+                <th>Last Active</th> <!-- New column header -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{ $user->character_last_name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->character_server }}</td>
+                <td>{{ $user->last_active ? $user->last_active->diffForHumans() : 'N/A' }}</td> <!-- Displaying the last active time -->
                 <td>
                     <a href="{{ route('management.users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
                     <a href="{{ route('management.users.show', $user->id) }}" class="btn btn-sm btn-success">View</a>
