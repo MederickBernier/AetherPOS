@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\TransactionController;
 
 // Home Route
 Route::get('/', [WelcomeController::class,'index'])->name('home');
@@ -66,5 +68,9 @@ Route::middleware(['auth', 'user.activity'])->group(function(){
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
     // Point of Sale Routes
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
+    Route::put('/transactions/{transaction}/cancel', [TransactionController::class, 'cancel'])->name('transactions.cancel');
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
+    Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
 });

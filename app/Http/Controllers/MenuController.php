@@ -19,13 +19,14 @@ class MenuController extends Controller
     }
 
     public function store(Request $request){
+
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'items' => 'array|exists:items,id',
-            'adjustment_type.*' => 'required|in:none,special_price,discount',
-            'special_price.*' => 'required_if:adjustment_type.*,special_price|nullable|numeric',
-            'discount.*' => 'required_if:adjustment_type.*,discount|nullable|integer|min:0|max:100',
+            'items.*.id' => 'required|exists:items,id',
+            'items.*.adjustment_type' => 'required|in:none,special_price,discount',
+            'items.*.special_price' => 'nullable|numeric',
+            'items.*.discount' => 'nullable|integer|min:0|max:100',
         ]);
 
         $menu = Menu::create([
@@ -34,16 +35,26 @@ class MenuController extends Controller
         ]);
 
         if(isset($data['items']) && !empty($data['items'])){
-            foreach($data['items'] as $index => $itemId){
-                if($itemId){
-                    $menu->items()->attach($itemId,[
-                        'special_price' => $data['special_price'][$index] ?? null,
-                        'discount' => $data['discount'][$index] ?? null,
-                        'adjustment_type' => $data['adjustment_type'][$index],
-                    ]);
+            foreach($data['items'] as $itemData){
+                $itemId = $itemData['id'];
+                $adjustmentType = $itemData['adjustment_type'];
+                $specialPrice = null;
+                $discount = null;
+
+                if ($adjustmentType === 'special_price') {
+                    $specialPrice = $itemData['special_price'] ?? null;
+                } elseif ($adjustmentType === 'discount') {
+                    $discount = $itemData['discount'] ?? null;
                 }
+
+                $menu->items()->attach($itemId, [
+                    'special_price' => $specialPrice,
+                    'discount' => $discount,
+                    'adjustment_type' => $adjustmentType,
+                ]);
             }
         }
+
         return redirect()->route('menus.index')->with('success','Menu created successfully');
     }
 

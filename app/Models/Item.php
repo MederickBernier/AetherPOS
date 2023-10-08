@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
@@ -32,5 +32,9 @@ class Item extends Model
                 'discount',
                 'adjustment_type'
             );
+    }
+
+    public function transactions(){
+        return $this->belongsToMany(Transaction::class,'transaction_item')->withPivot('quantity')->withTimestamps();
     }
 }

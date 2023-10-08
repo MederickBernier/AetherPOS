@@ -47,7 +47,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Point of Sale</a>
+                    <a class="nav-link" href="{{ route('pos.index') }}">Point of Sale</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Accounting</a>
@@ -59,6 +59,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownManagement">
                         <li><a class="dropdown-item" href="{{ route('management.users.index') }}">List of all Users</a></li>
                         <li><a class="dropdown-item" href="{{ route('management.users.create') }}">Add a new User</a></li>
+                        <li><a class="dropdown-item" href="{{ route('transactions.index') }}">View all transactions</a></li>
                     </ul>
                 </li>
 

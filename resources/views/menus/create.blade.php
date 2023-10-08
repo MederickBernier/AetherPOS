@@ -60,55 +60,67 @@
 
 <script>
     $(document).ready(function() {
+        let selectedItems = [];
+
         $('#items').change(function() {
             const itemId = $(this).val();
             const itemName = $('option:selected', this).data('name');
             if (itemId) {
+                const itemData = {
+                    id: itemId,
+                    name: itemName,
+                    adjustment_type: 'none',
+                    special_price: null,
+                    discount: null
+                };
+                selectedItems.push(itemData);
+                renderItems();
+            }
+        });
+
+        function renderItems() {
+            $('#itemsContainer').empty();
+            selectedItems.forEach((item, index) => {
                 const row = `
-                    <div class="row border mb-2">
-                        <div class="col-12 col-md-3 py-2">${itemName}<input type="hidden" name="items[]" value="${itemId}"></div>
+                    <div class="row border mb-2" data-index="${index}">
+                        <div class="col-12 col-md-3 py-2">${item.name}<input type="hidden" name="items[${index}][id]" value="${item.id}"></div>
                         <div class="col-12 col-md-3 py-2">
-                            <select class="adjustment-type form-control" name="adjustment_type[]">
+                            <select class="adjustment-type form-control" name="items[${index}][adjustment_type]">
                                 <option value="none">None</option>
                                 <option value="special_price">Special Price</option>
                                 <option value="discount">Discount</option>
                             </select>
                         </div>
+                        <div class="col-12 col-md-3 py-2 adjustment-value"></div>
                         <div class="col-12 col-md-3 py-2 text-end">
                             <button type="button" class="btn btn-danger btn-sm remove-item">Remove</button>
                         </div>
                     </div>
                 `;
                 $('#itemsContainer').append(row);
-            }
-        });
+            });
+        }
 
         $(document).on('change', '.adjustment-type', function() {
             const adjustmentType = $(this).val();
             const parentRow = $(this).closest('.row');
+            const index = parentRow.data('index');
+            selectedItems[index].adjustment_type = adjustmentType;
 
-            // Remove existing dynamic columns if any
-            parentRow.find('.dynamic-column').remove();
-
+            let inputField = '';
             if (adjustmentType === 'special_price') {
-                const specialPriceColumn = `
-                    <div class="col-12 col-md-3 py-2 dynamic-column">
-                        <input type="number" step="1" class="form-control" name="special_price[]">
-                    </div>
-                `;
-                parentRow.find('.text-end').before(specialPriceColumn);
+                inputField = `<input type="number" step="1" class="form-control" name="items[${index}][special_price]">`;
             } else if (adjustmentType === 'discount') {
-                const discountColumn = `
-                    <div class="col-12 col-md-3 py-2 dynamic-column">
-                        <input type="number" class="form-control" name="discount[]" min="0" max="100">
-                    </div>
-                `;
-                parentRow.find('.text-end').before(discountColumn);
+                inputField = `<input type="number" class="form-control" name="items[${index}][discount]" min="0" max="100">`;
             }
+            parentRow.find('.adjustment-value').html(inputField);
         });
 
         $(document).on('click', '.remove-item', function() {
-            $(this).closest('.row').remove();
+            const parentRow = $(this).closest('.row');
+            const index = parentRow.data('index');
+            selectedItems.splice(index, 1);
+            renderItems();
         });
     });
 </script>
