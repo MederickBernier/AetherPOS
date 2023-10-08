@@ -71,10 +71,10 @@ class MenuController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'items' => 'array|exists:items,id',
-            'adjustment_type.*' => 'required|in:none,special_price,discount',
-            'special_price.*' => 'required_if:adjustment_type.*,special_price|nullable|numeric|min:0',
-            'discount.*' => 'required_if:adjustment_type.*,discount|nullable|integer|min:0|max:100',
+            'items.*.id' => 'required|exists:items,id',
+            'items.*.adjustment_type' => 'required|in:none,special_price,discount',
+            'items.*.special_price' => 'nullable|numeric',
+            'items.*.discount' => 'nullable|integer|min:0|max:100',
         ]);
 
         $menu->update([
@@ -82,29 +82,22 @@ class MenuController extends Controller
             'description' => $data['description'],
         ]);
 
-        $existingItemIds = $menu->items->pluck('id')->toArray();
-
-        $itemsToAttach = array_diff($data['items'], $existingItemIds);
-        $itemsToUpdate = array_intersect($data['items'], $existingItemIds);
-
-        if (!empty($itemsToAttach)) {
-            $menu->items()->attach($itemsToAttach, []);
-        }
-
-        foreach ($itemsToUpdate as $itemId) {
-            $pivotData = [
-                'special_price' => $data['special_price'][$itemId],
-                'discount' => $data['discount'][$itemId],
-                'adjustment_type' => $data['adjustment_type'][$itemId],
+        // Prepare the pivot data for sync
+        $syncData = [];
+        foreach ($data['items'] as $itemData) {
+            $syncData[$itemData['id']] = [
+                'adjustment_type' => $itemData['adjustment_type'],
+                'special_price' => $itemData['special_price'] ?? null,
+                'discount' => $itemData['discount'] ?? null,
             ];
-            $menu->items()->updateExistingPivot($itemId, $pivotData);
         }
 
-        $itemsToDetach = array_diff($existingItemIds, $data['items']);
-        $menu->items()->detach($itemsToDetach);
+        // Sync the menu's items with pivot data
+        $menu->items()->sync($syncData);
 
         return redirect()->route('menus.index')->with('success', 'Menu updated successfully');
     }
+
 
     public function destroy(Menu $menu){
         $menu->items()->detach();

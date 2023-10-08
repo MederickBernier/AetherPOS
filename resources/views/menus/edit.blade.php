@@ -50,12 +50,16 @@
                     <th>Adjustment Type</th>
                     <th>Special Price</th>
                     <th>Discount (%)</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($menu->items as $item)
                 <tr>
-                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->name }}
+                        <!-- Added hidden input for the item's ID -->
+                        <input type="hidden" name="items[{{ $item->id }}][id]" value="{{ $item->id }}">
+                    </td>
                     <td>
                         <select name="items[{{ $item->id }}][adjustment_type]">
                             <option value="none" {{ $item->pivot->adjustment_type == 'none' ? 'selected' : '' }}>None</option>
@@ -65,6 +69,7 @@
                     </td>
                     <td><input type="number" step="0.01" name="items[{{ $item->id }}][special_price]" value="{{ $item->pivot->special_price }}"></td>
                     <td><input type="number" name="items[{{ $item->id }}][discount]" min="0" max="100" value="{{ $item->pivot->discount }}"></td>
+                    <td><button type="button" class="btn btn-danger btn-sm remove-item">Remove</button></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -81,16 +86,19 @@
         if (itemId) {
             const row = `
                 <tr>
-                    <td>${itemName}<input type="hidden" name="items[]" value="${itemId}"></td>
+                    <td>${itemName}
+                        <!-- Added hidden input for the item's ID -->
+                        <input type="hidden" name="items[${itemId}][id]" value="${itemId}">
+                    </td>
                     <td>
-                        <select name="adjustment_type[]">
+                        <select name="items[${itemId}][adjustment_type]">
                             <option value="none">None</option>
                             <option value="special_price">Special Price</option>
                             <option value="discount">Discount</option>
                         </select>
                     </td>
-                    <td><input type="number" step="1" name="special_price[]"></td>
-                    <td><input type="number" name="discount[]" min="0" max="100"></td>
+                    <td><input type="number" step="1" name="items[${itemId}][special_price]"></td>
+                    <td><input type="number" name="items[${itemId}][discount]" min="0" max="100"></td>
                     <td><button type="button" class="btn btn-danger btn-sm remove-item">Remove</button></td>
                 </tr>
             `;

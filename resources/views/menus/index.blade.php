@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5"> <!-- Added top margin for better spacing from the navbar or top of the page -->
+<div class="container mt-5">
     <div class="row mb-4">
         <div class="col-md-8 col-sm-6">
             <h2>Menus</h2>
         </div>
-        <div class="col-md-4 col-sm-6 text-md-end text-sm-end text-start"> <!-- Responsive alignment for the button -->
+        <div class="col-md-4 col-sm-6 text-md-end text-sm-end text-start">
             <a href="{{ route('menus.create') }}" class="btn btn-primary">Create New Menu</a>
         </div>
     </div>
@@ -15,18 +15,17 @@
         @if($menus->count())
             @foreach($menus as $menu)
                 <div class="menu-item">
-                    <!-- Menu Name (Clickable) -->
                     <div class="item-header">
                         {{ $menu->name }}
                         <span class="toggle-details">[+]</span>
                     </div>
 
-                    <!-- Menu Details (Hidden initially) -->
                     <div class="item-details" style="display: none;">
                         <p><strong>ID:</strong> {{ $menu->id }}</p>
                         <p><strong>Description:</strong> {{ $menu->description }}</p>
                         <div>
                             <a href="{{ route('menus.show', $menu) }}" class="btn btn-info btn-sm">View</a>
+                            <a href="{{ route('menus.edit', $menu) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('menus.destroy', $menu) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
@@ -47,7 +46,6 @@
 </div>
 
 <script>
-    // Toggle menu details visibility
     document.querySelectorAll('.menu-item .item-header').forEach(header => {
         header.addEventListener('click', () => {
             const details = header.nextElementSibling;

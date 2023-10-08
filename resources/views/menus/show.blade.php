@@ -41,6 +41,10 @@
         </tbody>
     </table>
 
-    <a href="{{ route('menus.index') }}" class="btn btn-primary">Back to Menu List</a>
+    <!-- Buttons wrapped in a flex container -->
+    <div class="d-flex mb-3">
+        <a href="{{ route('menus.edit', $menu) }}" class="btn btn-warning me-2">Edit Menu</a>
+        <a href="{{ route('menus.index') }}" class="btn btn-primary">Back to Menu List</a>
+    </div>
 </div>
 @endsection
