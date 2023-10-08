@@ -16,7 +16,6 @@ class TransactionController extends Controller
     }
 
     public function store(Request $request){
-        \Log::info('Starting transaction...');
 
         $data = $request->validate([
             'user_id' => 'required|exists:users,id',
@@ -28,20 +27,19 @@ class TransactionController extends Controller
         DB::beginTransaction();
 
         try {
-            \Log::info('Validating request...');
-            $transaction = Transaction::create([
-                'user_id' => $data['user_id'],
-                'total_amount' => 0,
-            ]);
-
-            \Log::info('Transaction created with ID: ' . $transaction->id);
 
             $now = now();
             $activeEvent = Event::where('start_timestamp','<=', $now)->where('end_timestamp','>=',$now)->first();
 
+            $transaction = Transaction::create([
+                'user_id' => $data['user_id'],
+                'total_amount' => 0,
+                'event_id' => $activeEvent ? $activeEvent->id : null,  // Associate with the active event if there's one
+            ]);
+
+
             $totalAmount = 0;
 
-            \Log::info('Processing items...');
             foreach($data['items'] as $itemData){
                 $item = Item::find($itemData['id']);
 
@@ -76,7 +74,6 @@ class TransactionController extends Controller
                 $transaction->items()->attach($item->id, ['quantity' => $itemData['quantity']]);
             }
 
-            \Log::info('Updating total amount...');
             $transaction->update(['total_amount' => $totalAmount]);
 
             // Commit the database transaction
@@ -93,7 +90,27 @@ class TransactionController extends Controller
         }
     }
 
-    public function cancel(Transaction $transaction){
+    public function cancel(Transaction $transaction)
+    {
+    DB::beginTransaction();
 
+    try {
+        // Refund the items back to the inventory
+        foreach ($transaction->items as $item) {
+            $item->increment('quantity', $item->pivot->quantity);
+        }
+
+        // Optionally, you can delete the transaction or mark it as cancelled
+        $transaction->delete();
+
+        DB::commit();
+
+        return redirect()->route('transactions.index')->with('success', 'Transaction cancelled and items refunded.');
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+
+        return redirect()->route('transactions.index')->with('error', 'Failed to cancel the transaction: ' . $e->getMessage());
     }
+}
 }

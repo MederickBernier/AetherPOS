@@ -24,6 +24,10 @@
                         <div class="transaction-details" style="display: none;">
                             <p><strong>User:</strong> {{ $transaction->user->character_first_name }} {{ $transaction->user->character_last_name }}</p>
                             <p><strong>Total Amount:</strong> {{ number_format($transaction->total_amount, 0, '.', ',') }} Gil</p>
+                            @if($transaction->event)
+                                <p><strong>Event:</strong> {{ $transaction->event->name }}</p>
+                            @endif
+                            <p><a href="{{ route('transactions.cancel', $transaction) }}" class="btn btn-danger btn-sm float-right ml-2">Cancel</a></p>
                             <p><strong>Items:</strong></p>
                             <ul>
                                 @foreach($transaction->items as $item)

@@ -25,9 +25,9 @@ class PosController extends Controller
                 $pivotData = $item->pivot;
 
                 if($pivotData->special_price){
-                    $item->price = $pivotData->special_price;
+                    $item->price = floor($pivotData->special_price);
                 }elseif($pivotData->discount){
-                    $item->price = $item->price - ($item->price * ($pivotData->discount/100));
+                    $item->price = floor($item->price - ($item->price * ($pivotData->discount/100)));
                 }
             }
         }else{

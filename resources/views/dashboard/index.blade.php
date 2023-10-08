@@ -32,13 +32,13 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="col hidden">
+        <div class="col">
             <div class="card h-100 overflow-auto">
                 <div class="card-header">
-                    Card Title 3
+                    Event Sales Tracker
                 </div>
                 <div class="card-body">
-                    Card content 3
+                    <livewire:event-sales />
                 </div>
             </div>
         </div>
@@ -100,8 +100,6 @@
                 </div>
                 <div class="card-body">
                     <ul>
-                        <li>Menu modifications not available</li>
-                        <li>Point of Sale Module to create</li>
                         <li>Accounting Module to create</li>
                         <li>Work the design to be more responsive on small and medium devices.</li>
                         <li>Adding a theme switcher, for now we'll run with the light one until i figure out how to do it without breaking everything</li>
