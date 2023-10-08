@@ -13,7 +13,8 @@ class Transaction extends Model
     protected $fillable = [
         'user_id',
         'total_amount',
-        'event_id'
+        'event_id',
+        'is_fc_member',
     ];
 
     public function user(){

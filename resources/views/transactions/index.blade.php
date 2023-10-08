@@ -27,6 +27,7 @@
                             @if($transaction->event)
                                 <p><strong>Event:</strong> {{ $transaction->event->name }}</p>
                             @endif
+                            <p><strong>Is FC Member?</strong> {{ $transaction->is_fc_member ? 'Yes' : 'No' }}</p> <!-- Added this line -->
                             <p><a href="{{ route('transactions.cancel', $transaction) }}" class="btn btn-danger btn-sm float-right ml-2">Cancel</a></p>
                             <p><strong>Items:</strong></p>
                             <ul>

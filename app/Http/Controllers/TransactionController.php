@@ -22,7 +22,11 @@ class TransactionController extends Controller
             'items' => 'required|array',
             'items.*.id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
+            'is_fc_member' => 'required|string', // Validate as a string
         ]);
+
+        // Convert the string to a boolean
+        $data['is_fc_member'] = filter_var($data['is_fc_member'], FILTER_VALIDATE_BOOLEAN);
 
         DB::beginTransaction();
 
@@ -35,8 +39,8 @@ class TransactionController extends Controller
                 'user_id' => $data['user_id'],
                 'total_amount' => 0,
                 'event_id' => $activeEvent ? $activeEvent->id : null,  // Associate with the active event if there's one
+                'is_fc_member' => $data['is_fc_member'], // Store the boolean value
             ]);
-
 
             $totalAmount = 0;
 
@@ -65,6 +69,11 @@ class TransactionController extends Controller
                             $itemPrice = $itemPrice - ($itemPrice * ($pivotData->discount / 100));
                         }
                     }
+                }
+
+                // If the transaction is for an FC member, set the item price to 0
+                if ($data['is_fc_member']) {
+                    $itemPrice = 0;
                 }
 
                 // Calculate the total amount for this item

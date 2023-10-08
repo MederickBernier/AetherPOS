@@ -34,6 +34,14 @@
                 <div class="mt-3">
                     <strong>Total: </strong><span id="total-price">0</span> Gil
                 </div>
+                <div class="mt-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="fcMemberCheckbox">
+                        <label class="form-check-label" for="fcMemberCheckbox">
+                            FC Member Purchase
+                        </label>
+                    </div>
+                </div>
                 <button id="finalize-transaction" class="btn btn-success btn-block mt-3">Finish Transaction</button>
                 <button id="toggle-transaction-list" class="btn btn-light btn-block mt-3 d-lg-none">
                     <i class="bi bi-chevron-up"></i> Show/Hide Transaction
@@ -118,6 +126,7 @@
         $('#finalize-transaction').click(function() {
             const userId = $('#user-id').val();
             const items = [];
+            const isFcMember = $('#fcMemberCheckbox').prop('checked'); // Check if FC Member checkbox is checked
 
             $('#transaction-list li').each(function() {
                 const itemId = $(this).data('item-id');
@@ -127,7 +136,8 @@
 
             const data = {
                 user_id: userId,
-                items: items
+                items: items,
+                is_fc_member: isFcMember // Send this to the backend
             };
 
             $.post('/transactions', data, function(response) {
@@ -135,6 +145,7 @@
                 location.reload();
             });
         });
+        $('#fcMemberCheckbox').prop('checked', false);
     });
 </script>
 
