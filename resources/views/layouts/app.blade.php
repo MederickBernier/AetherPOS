@@ -70,10 +70,4 @@
 
 </body>
 
-<style>
-    body {
-        background: radial-gradient(circle, #e0f2fd, #ffffff);
-    }
-</style>
-
 </html>

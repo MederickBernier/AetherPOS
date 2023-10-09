@@ -43,10 +43,6 @@
 </div>
 
 <style>
-    body {
-    background: radial-gradient(circle, #e0f2fd, #ffffff);
-    }
-
     .hero-section {
         padding: 150px 0;
         text-align: center;
