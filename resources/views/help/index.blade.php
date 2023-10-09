@@ -342,7 +342,7 @@
             <dd>The "FC Member Purchase" option in the POS module allows you to process transactions for FC members at no cost during specific events. This is a special feature to recognize and reward FC members.</dd>
 
             <dt>How do I contact support if I encounter issues?</dt>
-            <dd>If you face any issues or have further questions, you can reach out to our support team through Discord. Username: <strong>_neiwa</strong>.</dd>
+            <dd>If you face any issues or have further questions, you can reach out to our support team through the <a href="{{ route('contact.index') }}">contact form</a></dd>
         </dl>
     </div>
 </div>

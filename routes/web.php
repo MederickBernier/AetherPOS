@@ -5,6 +5,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
@@ -77,4 +78,8 @@ Route::middleware(['auth', 'user.activity'])->group(function(){
 
     // Help and References Routes
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
+
+    // Contact Routes
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 });
