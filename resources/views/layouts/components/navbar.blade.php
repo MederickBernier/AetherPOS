@@ -49,9 +49,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('pos.index') }}">Point of Sale</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="#">Accounting</a>
-                </li>
+                </li> --}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManagement" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Management
@@ -61,6 +61,9 @@
                         <li><a class="dropdown-item" href="{{ route('management.users.create') }}">Add a new User</a></li>
                         <li><a class="dropdown-item" href="{{ route('transactions.index') }}">View all transactions</a></li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('help.index') }}">Help</a>
                 </li>
 
             </ul>

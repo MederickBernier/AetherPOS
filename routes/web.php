@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PosController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
@@ -73,4 +74,7 @@ Route::middleware(['auth', 'user.activity'])->group(function(){
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+
+    // Help and References Routes
+    Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 });
