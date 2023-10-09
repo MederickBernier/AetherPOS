@@ -14,17 +14,27 @@
     <title>AetherPOS</title>
 </head>
 
-<body class="bg-light">
-    @include('layouts.components.navbar')
+<body class="bg-light d-flex flex-column min-vh-100">
+    @auth
+        @include('layouts.components.navbar')
+    @endauth
 
-    <div class="container-fluid">
-        <div class="row justify-content-center"> <!-- Added justify-content-center -->
+    <div class="container-fluid flex-grow-1">
+        <div class="row justify-content-center">
             <!-- Main content -->
-            <main class="{{ auth()->check() ? 'col-md-9 col-lg-12' : 'col-12' }} px-md-4 mt-5 mx-auto"> <!-- Added mx-auto -->
+            <main class="{{ auth()->check() ? 'col-md-9 col-lg-12' : 'col-12' }} px-md-4 mt-5 mx-auto">
                 @yield('content')
             </main>
         </div>
     </div>
+
+    <!-- Footer -->
+    @if(!auth()->check())
+    <footer class="text-center mt-5 mb-3">
+        <p>&copy; {{ date('Y') }} AetherPOS. All rights reserved.</p>
+        <p>This application is not affiliated with, endorsed, or sponsored by Square Enix. All trademarks, service marks, trade names, trade dress, product names, and logos appearing on the site are the property of their respective owners.</p>
+    </footer>
+    @endif
 
     @if(session('success'))
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
@@ -59,5 +69,11 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
 </body>
+
+<style>
+    body {
+        background: radial-gradient(circle, #e0f2fd, #ffffff);
+    }
+</style>
 
 </html>
