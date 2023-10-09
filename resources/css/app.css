@@ -67,6 +67,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.bg-white{
+    background-color:#f9f9f9 !important;
+}
+
 /* Primary Color for buttons, links, and highlights */
 .btn-primary, .text-primary {
     background-color: #0a3d62 ;

@@ -14,7 +14,7 @@
     <div class="row mt-5">
         <div class="col-md-4">
             <div class="feature-box">
-                <div class="feature-icon text-primary">
+                <div class="feature-icon text-primary bg-white">
                     <i class="bi bi-cash"></i>
                 </div>
                 <h3>Efficient POS System</h3>
