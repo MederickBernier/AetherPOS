@@ -21,7 +21,7 @@
 
             <div class="inventory-list">
                 @foreach($items as $item)
-                    <div class="inventory-item">
+                    <div class="inventory-item" data-item-name="{{ $item->name }}">
                         <div class="item-header">
                             {{ $item->name }}
                             <span class="toggle-details">[+]</span>
@@ -38,12 +38,34 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="not-found-message" style="display: none;">Item not found. Add it to the inventory to use it.</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    const searchInput = document.getElementById('searchItem');
+    const inventoryItems = document.querySelectorAll('.inventory-item');
+    const notFoundMessage = document.querySelector('.not-found-message');
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        let itemsFound = false;
+
+        inventoryItems.forEach(item => {
+            const itemName = item.getAttribute('data-item-name').toLowerCase();
+            if (itemName.includes(query)) {
+                item.style.display = 'block';
+                itemsFound = true;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        notFoundMessage.style.display = itemsFound ? 'none' : 'block';
+    });
+
     document.querySelectorAll('.inventory-item .item-header').forEach(header => {
         header.addEventListener('click', () => {
             const details = header.nextElementSibling;
