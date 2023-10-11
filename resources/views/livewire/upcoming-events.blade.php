@@ -1,4 +1,4 @@
-<div wire:poll.60s>
+<div wire:poll.1s>
     @foreach($events as $event)
         @php
             $now = \Carbon\Carbon::now();

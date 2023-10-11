@@ -17,14 +17,16 @@ class UpcomingEvents extends Component
     public function fetchEvents()
     {
         $now = Carbon::now();
-        $this->events = Event::whereDate('end_date', '>=', $now->toDateString())
-            ->orWhere(function ($query) use ($now) {
-                $query->whereDate('end_date', '=', $now->toDateString())
-                      ->whereTime('end_time', '>', $now->toTimeString());
-            })
-            ->orderBy('start_date', 'asc')
-            ->orderBy('start_time', 'asc')
-            ->get();
+        $this->events = Event::where(function ($query) use ($now) {
+            $query->whereDate('end_date', '>', $now->toDateString())
+                ->orWhere(function ($subQuery) use ($now) {
+                    $subQuery->whereDate('end_date', '=', $now->toDateString())
+                            ->whereTime('end_time', '>', $now->toTimeString());
+                });
+        })
+        ->orderBy('start_date', 'asc')
+        ->orderBy('start_time', 'asc')
+        ->get();
     }
 
     public function render()
