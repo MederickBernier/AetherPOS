@@ -37,4 +37,12 @@ class PosController extends Controller
 
         return view('pos.index', compact('items','title'));
     }
+     public function checkActiveEvent() {
+        $now = now();
+        $activeEvent = Event::where('start_timestamp', '<=', $now)
+                            ->where('end_timestamp', '>=', $now)
+                            ->first();
+
+        return response()->json(['isActive' => !!$activeEvent]);
+    }
 }

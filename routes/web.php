@@ -69,13 +69,15 @@ Route::middleware(['auth', 'user.activity'])->group(function(){
     Route::put('/events/{event}', [EventController::Class,'update'])->name('events.update');
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
-    // Point of Sale Routes
+    // Transactions Routes
     Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
     Route::put('/transactions/{transaction}/cancel', [TransactionController::class, 'cancel'])->name('transactions.cancel');
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
+    // Point of Sales Routes
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
-
+    Route::get('/api/check-active-event', [PosController::class, 'checkActiveEvent']);
+    
     // Help and References Routes
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 

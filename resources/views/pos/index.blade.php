@@ -146,7 +146,28 @@
             });
         });
         $('#fcMemberCheckbox').prop('checked', false);
+
+        // Dynamic refresh logic
+        setInterval(function() {
+            $.get('/api/check-active-event', function(data) {
+                console.log("Check Active Event Response:", data); // Log the response from the server
+
+                if (data.isActive) {
+                    console.log("There's an active event.");
+
+                    if ($("#transaction-list").children().length === 0) {
+                        console.log("Transaction list is empty. Refreshing the page...");
+                        location.reload();
+                    } else {
+                        console.log("Transaction list is not empty. No refresh needed.");
+                    }
+                } else {
+                    console.log("No active event currently.");
+                }
+            });
+        }, 60000); // 60 seconds
     });
+
 </script>
 
 <style>
