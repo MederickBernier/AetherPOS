@@ -25,8 +25,17 @@
                 <h6 class="card-subtitle mb-2 text-muted">Assigned Menu: {{ $event->menu->name }}</h6>
                 <p class="card-text"><strong>Description:</strong> {{ $event->menu->description ?? 'N/A' }}</p>
                 <ul>
-                @foreach($event->menu->items as $item) <!-- Assuming each menu has a related 'items' collection -->
-                    <li>{{ $item->name }} - {{ $item->price }} Gil</li>
+                @foreach($event->menu->items as $item)
+                    @php
+                        $displayPrice = $item->price; // Default to the original price
+                        $pivotData = $item->pivot;
+                        if ($pivotData->special_price) {
+                            $displayPrice = floor($pivotData->special_price);
+                        } elseif ($pivotData->discount) {
+                            $displayPrice = floor($item->price - ($item->price * ($pivotData->discount / 100)));
+                        }
+                    @endphp
+                    <li>{{ $item->name }} - {{ $displayPrice }} Gil</li>
                 @endforeach
                 </ul>
             @else
