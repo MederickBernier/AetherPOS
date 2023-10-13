@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\RecoveryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ManagementController;
@@ -19,6 +20,10 @@ Route::get('/', [WelcomeController::class,'index'])->name('home');
 Route::get('/login', [UserController::class,'show_login'])->name('login.show');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+// Password Recovery
+Route::get('/recovery', [RecoveryController::class, 'index'])->name('recovery.index');
+Route::post('/recovery', [RecoveryController::class, 'verify'])->name('recovery.verify');
+Route::put('/recovery', [RecoveryController::class, 'update'])->name('recovery.update');
 /* Route::get('/register', [UserController::class, 'show_register'])->name('register.show');
 Route::post('/register', [UserController::class, 'register'])->name('register'); */
 
@@ -77,7 +82,7 @@ Route::middleware(['auth', 'user.activity'])->group(function(){
     // Point of Sales Routes
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::get('/api/check-active-event', [PosController::class, 'checkActiveEvent']);
-    
+
     // Help and References Routes
     Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 

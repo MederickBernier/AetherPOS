@@ -19,6 +19,22 @@
         @include('layouts.components.navbar')
     @endauth
 
+    @if ($errors->any())
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                            @foreach ($errors->all() as $error)
+                                <p class="mb-1">{{ $error }}</p>
+                            @endforeach
+                            <hr>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="container-fluid flex-grow-1">
         <div class="row justify-content-center">
             <!-- Main content -->
