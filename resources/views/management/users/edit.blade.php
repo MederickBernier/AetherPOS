@@ -60,4 +60,32 @@
         <button type="submit" class="btn btn-primary">Update User</button>
     </form>
 </div>
+
+<script>
+    const password = document.getElementById('password');
+    const passwordConfirmation = document.getElementById('password_confirmation');
+
+    function checkPasswordMatch() {
+        if (password.value && passwordConfirmation.value) {
+            if (password.value === passwordConfirmation.value) {
+                password.classList.remove('is-invalid');
+                passwordConfirmation.classList.remove('is-invalid');
+                password.classList.add('is-valid');
+                passwordConfirmation.classList.add('is-valid');
+            } else {
+                password.classList.remove('is-valid');
+                passwordConfirmation.classList.remove('is-valid');
+                password.classList.add('is-invalid');
+                passwordConfirmation.classList.add('is-invalid');
+            }
+        } else {
+            password.classList.remove('is-valid', 'is-invalid');
+            passwordConfirmation.classList.remove('is-valid', 'is-invalid');
+        }
+    }
+
+    password.addEventListener('input', checkPasswordMatch);
+    passwordConfirmation.addEventListener('input', checkPasswordMatch);
+</script>
+
 @endsection
