@@ -47,6 +47,16 @@
             <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
         </div>
 
+        <div class="mb-3">
+            <label for="password" class="form-label">Password (leave blank to keep unchanged)</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+        </div>
+
         <button type="submit" class="btn btn-primary">Update User</button>
     </form>
 </div>

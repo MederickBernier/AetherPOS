@@ -79,7 +79,7 @@
                 @endguest
 
                 @auth
-                    <span class="text-white me-4">Hi, {{ Auth::user()->character_first_name }} !</span>
+                <span class="text-white me-4">Hi, <a href="{{ route('profile') }}" style="color: inherit; text-decoration: none;">{{ Auth::user()->character_first_name }}</a> !</span>
                     <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-link text-white text-decoration-none py-2">Logout</button>

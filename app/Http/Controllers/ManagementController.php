@@ -77,9 +77,9 @@ class ManagementController extends Controller
         ]);
 
         // Update the password if provided
-        if($request->password){
+        if($request->filled('password')){
             $user->update([
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
             ]);
         }
 
